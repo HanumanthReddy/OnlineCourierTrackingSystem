@@ -1,0 +1,8 @@
+This Project is developed by using Python Language, Django Framework, Bootstrap and MySQL.
+
+Features:
+    >. It is developed to track the location of the courier or parcel in real time.
+    >. Main Admin and Center Admin are the respective roles in providing the information about the courier.
+    >. Main Admin updates the courier details like Source, Destination and its Status where as Center Admin updates only status and estimated delivery date.
+    >. Tracking information is sent to the user’s Email and Mobile.
+    >. Online Shipment is provided to the registered users.
