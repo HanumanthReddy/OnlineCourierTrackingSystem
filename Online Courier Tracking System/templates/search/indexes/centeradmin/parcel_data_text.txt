@@ -1,0 +1,6 @@
+{{ object.P_ID }}
+{{ object.P_Source}}
+{{ object.P_Destination}}
+{{ object.P_Last}}
+{{ object.P_Next}}
+{{ object.P_Status}}

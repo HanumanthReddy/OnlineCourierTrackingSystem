@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block title %} WELOCME TO ONLINE SHIPMENT {% endblock %}
+
+
+
+{% block content %}
+
+
+            <div class="row">
+                <div class="col col-lg col-lg-10 col-lg-offset-1">
+                    <h1> ONLINE SHIPMENT FORM </h1> <br>
+
+                    <form class="form-horizontal" role="form" method="post" action="/submit/"> {%csrf_token%}
+                            <h4>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label"> PARCEL TYPE </label>
+                                <div class="col-sm-3">
+                                    <select id="ptype" class="form-control">
+                                      <option>General Items</option>
+                                      <option>Perishable Items</option>
+                                      <option>Electronic Goods</option>
+                                        <option>Suitcases, Travel Bags</option>
+                                        <option>Leisure Items</option>
+                                        <option>Sport Items</option>
+                                        <option>Large Items</option>
+                                        <option>Small House Hold Items</option>
+                                        <option>Works of Art</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="weight" class="col-sm-2 control-label">Weight (Approx.) </label>
+                                <div class="col-sm-3">
+                                    <select id="pweight" class="form-control">
+                                      <option>Below 1 Kg.</option>
+                                      <option>1 Kg - 5 Kgs</option>
+                                      <option>5 Kg - 10 Kgs</option>
+                                        <option>10 Kg - 50 Kgs</option>
+                                        <option>50 Kg - 100 Kgs</option>
+                                        <option>Above 100 Kgs </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-sm-2 control-label">EMAIL </label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="pemail" name="pemail" placeholder="example@domain.com" value="">
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                <label for="human" class="col-sm-2 control-label">SOURCE</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="psource" name="psource" >
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                <label for="human" class="col-sm-2 control-label">DESTINATION</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="pdestination" name="pdestination" >
+                                </div>
+                            </div>
+                                 <div class="form-group">
+                                <label for="message" class="col-sm-2 control-label">SOURCE ADDRESS </label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="psaddress" rows="4" name="message"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message" class="col-sm-2 control-label">DESTINATION ADDRESS </label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="pdaddress" rows="4" name="message"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="human" class="col-sm-2 control-label">MOBILE NO</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="pmobile" name="pmobile" placeholder="9966123456">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10 col-sm-offset-1">
+                                    <input id="submit" name="submit" type="submit" value="Send" class="btn btn-lg btn-light">
+                                </div>
+                            </div>
+                        </h4>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+
+{% endblock %}

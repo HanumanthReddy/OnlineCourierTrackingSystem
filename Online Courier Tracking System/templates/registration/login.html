@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+{% load widget_tweaks %}
+
+{% if form.errors %}
+
+    <div class="alert alert-danger">
+
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+      <h4> <strong>ERROR !</strong> {% blocktrans %}Your username and password didn't match. Please try again.{% endblocktrans %} </h4>
+
+    </div>
+
+{% endif %}
+
+
+<div>
+<h1>LOGIN FORM</h1>
+
+<form method="post" class="form-vertical" role="form"  action=".">{% csrf_token %}
+  <br><div class="form-group">
+    <h4>
+      <div class="row">
+      <div class="col-xs-4 col-xs-offset-4">
+        <label >Username:</label><br />
+          {{ form.username|add_class:"form-control"}}<br/>
+      </div>
+        </div>
+       <div class="row">
+      <div class="col-xs-4 col-xs-offset-4">
+      <label>Password:</label><br />
+      {{ form.password |add_class:"form-control"}}<br /><br />
+        </div>
+         </div>
+      </h4>
+     <div class="row">
+     <div class="col-xs-4 col-xs-offset-4">
+      <input type="submit" value="{% trans 'LOG IN' %}" class="btn btn-lg btn-dark" />
+      <input type="hidden" name="next" value="{{ next }}" />
+       </div>
+       </div>
+  </div>
+</form>
+
+<br>
+  <a href="{% url "auth_password_reset" %}" class="btn btn-lg btn-dark"> FORGOT PASSWORD !</a>
+  <a href="{% url "registration_register" %}" class="btn btn-lg btn-dark"> REGISTER !</a>
+
+  <p> </p>
+  <p> </p>
+
+</div>
+{% endblock %}

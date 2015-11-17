@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Profile" %}{% endblock %}
+{% block content %}
+{% url 'auth_password_reset' as auth_pwd_reset_url %}
+{% url 'registration_register' as register_url%}
+
+<!--<html>-->
+    <!--<head>-->
+        <title>PARCEL DATA</title>
+    <!--</head>-->
+<!--<body>-->
+
+    <div class="row">
+        <div class="col col-sm-1 pull-right">
+             <a href="{% url 'auth_logout' %}" class="btn btn-lg btn-dark"> LOGOUT </a>
+        </div>
+    </div>
+
+    <h2>WELCOME   {{request.user.username}} </h2>
+    <br> <br>
+
+{% if phno %}
+
+    <div class="alert alert-success">
+
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+        <h4> <strong>Success!</strong> {% blocktrans %}  Message has been sent to {{ phno }} {% endblocktrans %} </h4>
+
+    </div>
+
+{% endif %}
+
+{% if canc %}
+
+    <div class="alert alert-success">
+
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+        <h4> <strong>Success!</strong> {% blocktrans %}  Your Consignment has been cancelled, Our representative will notify you the details of cancellation charges soon after it's arrival at your city. {% endblocktrans %} </h4>
+
+    </div>
+
+{% endif %}
+
+
+{% if homee %}
+
+    <div class="alert alert-success">
+
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+        <h4> <strong>Success!</strong> {% blocktrans %}  Your Online Shipment request has been received , Our representative will come to the given address and collect your parcel {% endblocktrans %}</h4>
+
+    </div>
+
+{% endif %}
+
+<div class="row">
+
+    <div class="col col-lg-4">
+        <a href="/search/" class="btn btn-lg btn-dark"> TRACK !</a>
+    </div>
+
+    <div class="col col-lg-4">
+        <a href="/cancel/" class="btn btn-lg btn-dark"> CANCEL !</a>
+    </div>
+
+    <div class="col col-lg-4">
+        <a href="/online/" class="btn btn-lg btn-dark"> ONLINE SHIPMENT !</a>
+    </div>
+
+</div>
+
+
+
+<br><br>
+{% endblock %}
+<!--</body>-->
+<!--</html>-->

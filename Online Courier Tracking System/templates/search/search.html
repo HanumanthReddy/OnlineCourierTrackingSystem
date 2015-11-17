@@ -1,0 +1,177 @@
+
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+{% load easy_maps_tags %}
+
+{% load widget_tweaks %}
+
+{% if form.errors %}
+
+    <div class="alert alert-danger">
+
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+      <h4> <strong>ERROR !</strong> {% blocktrans %} There are errors in your Search form .{% endblocktrans %} </h4>
+
+    </div>
+
+{% endif %}
+
+
+    <h2>SEARCH YOUR PARCEL HERE ! </h2>
+
+   {% csrf_token %}
+    <form method="get"  class="form-vertical text-center" action=".">
+
+            {{ form.non_field_errors }}
+            <div class="row">
+                <div class="col-xs-4 col-xs-offset-4">
+                {{ form.q.errors }}
+
+                    <label class="btn btn-lg btn-lg-dark" for="{{ form.q.id_for_label }}"> PARCEL ID : </label>
+                    <!--<input id="{{ form.q.id_for_input }}" type="search" name="" maxlength="100" />-->
+
+                {{ form.q |add_class:"form-control" }}
+                    </div>
+                <span style="display:none">
+
+                     {{ form.models_0.errors }}
+                    <label for="{{ form.models_0.id_for_label }}"> Search In :</label>
+                {{ form.models_0 }}
+
+                {{ form.models.errors }}
+                    <ul id="{{ form.models.id_for_ul }}">
+
+                        <label for="{{ form.models_0.id_for_label }}">
+
+                         <input id="{{ form.models_0_id_for_input" name="models" value="centeradmin.parcel_data" type="checkbox" checked>
+
+                        </label>
+
+                    </ul>
+                {{ form.models_0 }}
+
+
+                </span>
+            </div>
+
+        <br>
+
+            <div class="row">
+                    <div class="col-xs-4 col-xs-offset-4">
+                         <input type="submit" value="SEARCH" class="btn btn-md btn-dark" />
+                        </div>
+            </div>
+
+    </form>
+
+<br><br><br>
+
+        {% if query %}
+
+        <div class="panel panel-default ">
+
+            <div class="panel-heading"> <h4> TRACKING RESULTS </h4> </div>
+
+                <table class="table table-bordered bg-primary">
+                    <thead">
+                        <tr>
+                            <th class="text-center">PARCEL ID</th>
+                            <th class="text-center">SOURCE</th>
+                            <th class="text-center">DESTINATION </th>
+                            <th class="text-center">LAST CITY </th>
+                            <th class="text-center">NEXT CITY </th>
+                            <th class="text-center">STATUS </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for result in page.object_list %}
+                        <tr>
+                            <td> <h4> {{ result.object.P_ID }} </h4> </td>
+                            <td> <h4> {{ result.object.P_Source }} </h4></td>
+                            <td> <h4> {{ result.object.P_Destination }} </h4></td>
+                            <td> <h4> {{ result.object.P_Last }} </h4></td>
+                            <td> <h4> {{ result.object.P_Next }} </h4></td>
+                            <td> <h4> {{ result.object.P_Status }} </h4></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+        </div>
+
+<br><br><br>
+
+
+ {% if query and request.user.username %}
+<div class="row text-center">
+
+    <div class="col-lg-10 col-lg-offset-1">
+
+                    <form id="sms" class="form-horizontal" method="post" action="/sms/">    {% csrf_token %}
+
+                        <input type="text" id="pid" name="pid" value="{{ result.object.P_ID }}" hidden>
+                        <span style="display:none">
+                        <input type="text" id="plast" name="plast" value="{{ result.object.P_Last }}" >
+                        <input type="text" id="pnext" name="pnext" value="{{ result.object.P_Next }}" >
+                        <input type="text" id="pstatus" name="pstatus" value="{{ result.object.P_Status }}">
+                        </span>
+                         <div class="row">
+                                <div class="col-xs-3 col-xs-offset-4">
+                                    <input type="text" class="input-md form-control" id="phno" placeholder="9494473579" name="phno">
+                                   </div>
+                                <div class="col-xs-4 col-xs-pull-1 ">
+                                    <input type="submit" name="submit" value="GET SMS ALERT"  class="btn btn-md btn-dark" />
+                                </div>
+                             </div>
+
+                    </form>
+        </div>
+</div>
+ {%endif%}
+
+
+<br><br><br>
+         {% if request.user.username %}
+
+            {% if result.object.P_Status == 'Delivered'%}
+
+                <div class="panel panel-default">
+
+                        <div class="panel-heading"> <h4>YOUR PARCEL IS SUCCEFULLY DELIVERED AT  " {{ result.object.P_Destination }} " </h4></div>
+
+                    <div class="panel-body">
+                         <h3> {% easy_map result.object.P_Destination 910 500 %} </h3>
+                    </div>
+
+                </div>
+
+
+            {% endif %}
+
+            {% if result.object.P_Status == 'In_Transit' %}
+
+                <div class="panel panel-default">
+
+                        <div class="panel-heading"> <h4> YOUR PARCEL IS AT {{ result.object.P_Last }} </h4></div>
+
+                    <div class="panel-body">
+
+                        <h3> {% easy_map result.object.P_Last 910 500 %} </h3>
+
+                    </div>
+
+                </div>
+            {% endif %}
+         {%endif%}
+            {% empty %}
+                <p>No results found.</p>
+            {% endfor %}
+
+
+        {% else %}
+            {# Show some example queries to run, maybe query syntax, something else? #}
+        {% endif %}
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}Register for an account{% endblock %}
+{% block body_class %}{{ block.super }} registration_form{% endblock %}
+
+
+{% block content_title %}
+  <h2>Register for an account</h2>
+{% endblock %}
+
+{% load widget_tweaks %}
+
+{% if form.errors %}
+
+    <div class="alert alert-danger">
+
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+      <h4> <strong>ERROR !</strong> {% blocktrans %} There are errors in your form .{% endblocktrans %} </h4>
+
+    </div>
+
+{% endif %}
+
+{% block content %}
+<div class="formBlock">
+<h1>REGISTRATION</h1>
+  <form action="{% url 'registration_register' %}" class="form-vertical text-center" method="post">{% csrf_token %}
+
+    <br>
+    <h4>
+      <div class="row">
+      <div class="col-xs-4 col-xs-offset-4">
+    <label>Username:</label><br />
+  {{ form.username |add_class:"form-control"}} <br>
+        </div>
+</div>
+       <div class="row">
+      <div class="col-xs-4 col-xs-offset-4">
+  <label>Email:</label><br />
+  {{ form.email | add_class:"form-control" }}<br>
+        </div>
+         </div>
+       <div class="row">
+<div class="col-xs-4 col-xs-offset-4">
+  <label>Password:</label><br />
+  {{ form.password1 |add_class:"form-control"}}<br>
+</div>
+         </div>
+       <div class="row">
+      <div class="col-xs-4 col-xs-offset-4">
+  <label>Password (again):</label><br />
+  {{ form.password2  |add_class:"form-control"}} <br>
+</div>
+         </div>
+<h4>
+
+   <input type="submit" value="REGISTER" class="btn btn-lg btn-dark" />
+  </form>
+<br><br>
+    <p>or</p>
+
+
+</div>
+
+<div class="formInstructions">
+<h3>Please Read</h3>
+<div class="formInstructionContainer">
+
+<h3>Why should I Register?</h3>
+
+<h3> Once registered you will be able to use all our premium services  </h3>
+</div>
+</div>
+<div class="clr"></div>
+{% endblock %}
+
